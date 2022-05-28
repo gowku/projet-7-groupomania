@@ -1,10 +1,14 @@
-const express = require("express");
+import express from "express";
 
-require("dotenv").config();
-// console.log(process.env.DB_USERNAME);
+import database from "./database/db.js";
 
-const morgan = require("morgan");
-const bodyParser = require(`body-parser`);
+import "dotenv/config";
+
+import morgan from "morgan";
+
+import bodyParser from "body-parser";
+
+import routes from "./routes/user.js";
 
 const app = express();
 
@@ -20,8 +24,15 @@ app.use((req, res, next) => {
   next();
 });
 
+database
+  .sync()
+  .then(console.log("connexion a la base de donnée réussi"))
+  .catch((error) => console.log(error));
+
 app.use(bodyParser.json());
 
 // app.use(`/images`, express.static(path.join(__dirname, `images`)));
 
-module.exports = app;
+app.use(routes);
+
+export default app;

@@ -1,7 +1,8 @@
-const http = require("http");
-const app = require("./app");
+import * as http from "http";
+import app from "./app.js";
 
-require("dotenv").config();
+import "dotenv/config";
+
 // console.log(process.env.PORT);
 
 const normalizePort = (val) => {
