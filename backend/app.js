@@ -8,7 +8,8 @@ import morgan from "morgan";
 
 import bodyParser from "body-parser";
 
-import routes from "./routes/user.js";
+import userRoutes from "./routes/user.js";
+import postRoutes from "./routes/post.js";
 
 const app = express();
 
@@ -29,10 +30,13 @@ database
   .then(console.log("connexion a la base de donnée réussi"))
   .catch((error) => console.log(error));
 
+app.use(express.json());
+
 app.use(bodyParser.json());
 
 // app.use(`/images`, express.static(path.join(__dirname, `images`)));
 
-app.use(routes);
+app.use(userRoutes);
+app.use(postRoutes);
 
 export default app;
