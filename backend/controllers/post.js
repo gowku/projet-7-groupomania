@@ -14,13 +14,14 @@ const getAllPost = (req, res, next) => {
 };
 const createPost = (req, res, next) => {
   console.log("je suis la 2");
-  console.log(req.body);
+  console.log(req.body.texte);
 
   post
     .create({
       userId: req.body.userId,
-      texte: req.body.text,
+      texte: req.body.texte,
       likes: req.body.likes,
+
       imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
       // ...req.body,
     })
