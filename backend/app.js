@@ -2,6 +2,10 @@ import express from "express";
 
 import database from "./database/db.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+const __dirname = fileURLToPath(import.meta.url);
+
 import "dotenv/config";
 
 import morgan from "morgan";
@@ -34,7 +38,7 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 
-// app.use(`/images`, express.static(path.join(__dirname, `images`)));
+app.use(`/images`, express.static(path.join(__dirname, `images`)));
 
 app.use(`/api/auth`, userRoutes);
 app.use(`/api/posts`, postRoutes);
