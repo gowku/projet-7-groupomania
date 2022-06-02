@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { user } from "../models/user.js";
+import { role } from "../models/role.js";
 
 import userValidation from "../validation/userValidation.js";
 
@@ -33,7 +34,7 @@ const signup = (req, res, next) => {
 
 const login = (req, res, next) => {
   // console.log("je me connecte");
-  // console.log(req.body.email);
+  // console.log(req.body);
 
   const cryptojsEmail = CryptoJS.HmacSHA256(req.body.email, process.env.EMAIL).toString();
 

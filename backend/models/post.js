@@ -24,6 +24,7 @@ const post = db.define("post", {
   likes: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    // defaultValue: 0
   },
 });
 

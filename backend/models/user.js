@@ -1,5 +1,6 @@
 import sequelize from "sequelize";
 import db from "../database/db.js";
+import { role } from "./role.js";
 
 const { DataTypes } = sequelize;
 
@@ -19,10 +20,18 @@ const user = db.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  //   roleId: {
-  //     type: DataTypes.INTEGER,
-  //     allowNull: false,
-  //   },
+  // role_Id: {
+  //   type: DataTypes.INTEGER,
+  //   defaultValue: 0,
+  //   allowNull: false,
+  // },
 });
+
+// user.associate = function(models) {
+//   user.hasMany(models.Article);
+// };
+// return User;
+
+// user.belongsTo(role);
 
 export { user };

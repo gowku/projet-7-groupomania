@@ -1,39 +1,25 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { user } from "../models/user.js";
 
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
+  // console.log(req);
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.TOKEN);
 
     const userId = decodedToken.userId;
-    const reqUserId = parseInt(req.body.userId);
 
-    const userIdParamsUrl = req.originalUrl.split("=")[1];
-    const parsUrl = parseInt(userIdParamsUrl);
-    // console.log(parsUrl);
-    // console.log(req.body);
-    if (req._body === true) {
-      // console.log(req);
-      if (reqUserId === userId) {
-        next();
-      } else {
-        throw "erreur identification userId";
-      }
-    } else if (parsUrl === userId) {
-      // console.log("je suis la");
-      // console.log(req.body);
-      next();
+    const userData = await user.findByPk(userId);
+
+    if (!userData) {
+      throw "Invalid user ID";
     } else {
-      throw "erreur identification url params";
+      req.user = userData;
+      next();
     }
-
-    // if (reqUserId && reqUserId !== userId) {
-    //   throw "Invalid user ID";
-    // } else {
-    //   next();
-    // }
-  } catch {
+  } catch (e) {
+    console.log(e);
     res.status(401).json({
       error: new Error("Invalid request!"),
     });

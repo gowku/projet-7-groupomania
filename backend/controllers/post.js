@@ -13,38 +13,47 @@ const getAllPost = (req, res, next) => {
     });
 };
 const createPost = (req, res, next) => {
-  console.log("je suis la");
+  console.log("je suis la 2");
+  console.log(req.body);
 
-  console.log(req.file);
-  // const Post = new post({
-  //   ...req.body,
-  //   imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
-  // });
   post
-    .create(req.body)
+    .create({
+      userId: req.body.userId,
+      texte: req.body.text,
+      likes: req.body.likes,
+      imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
+      // ...req.body,
+    })
     .then(() => {
       res.status(201).json({ message: "post créé" });
     })
     .catch((error) => res.status(500).json(error));
 };
+
 const postLiked = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
+
 const commentPost = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
+
 const modifyPost = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
+
 const modifyComment = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
+
 const deletePost = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
+
 const deleteComment = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
+
 const modifyPassword = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
