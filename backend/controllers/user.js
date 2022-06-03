@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { user } from "../models/user.js";
-import { role } from "../models/role.js";
+// import { role } from "../models/role.js";
 
 import userValidation from "../validation/userValidation.js";
 

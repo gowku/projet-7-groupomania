@@ -1,6 +1,7 @@
 import sequelize from "sequelize";
 import db from "../database/db.js";
-import { role } from "./role.js";
+// import { role } from "./role.js";
+import { post } from "./post.js";
 
 const { DataTypes } = sequelize;
 
@@ -20,11 +21,11 @@ const user = db.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  // role_Id: {
-  //   type: DataTypes.INTEGER,
-  //   defaultValue: 0,
-  //   allowNull: false,
-  // },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: 0,
+    allowNull: false,
+  },
 });
 
 // user.associate = function(models) {
@@ -32,6 +33,10 @@ const user = db.define("user", {
 // };
 // return User;
 
-// user.belongsTo(role);
+// user.hasOne(role);
+// role.belongsTo(user);
+
+user.hasMany(post);
+post.belongsTo(user);
 
 export { user };

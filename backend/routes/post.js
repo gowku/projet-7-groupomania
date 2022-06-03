@@ -19,7 +19,7 @@ router.get(`/`, auth, getAllPost);
 router.post(`/`, auth, Multer, createPost);
 // router.post(`/post:id/like`, auth, postLiked);
 // router.post(`/post:id/coment`, auth, commentPost);
-// router.put(`/post:id`, auth, modifyPost);
+router.put(`/:id`, auth, Multer, modifyPost);
 // router.put(`/post:id/coment`, auth, modifyComment);
 // router.delete(`/post:id`, auth, deletePost);
 // router.delete(`/post:id/coment`, auth, deleteComment);

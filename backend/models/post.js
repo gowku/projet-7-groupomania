@@ -10,10 +10,10 @@ const post = db.define("post", {
     autoIncrement: true,
     allowNull: false,
   },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+  // userId: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  // },
   texte: {
     type: DataTypes.STRING,
   },
@@ -24,7 +24,7 @@ const post = db.define("post", {
   likes: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    // defaultValue: 0
+    defaultValue: 0,
   },
 });
 
