@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { user } from "../models/user.js";
+import { User } from "../models/user.js";
 // import { role } from "../models/role.js";
 
 import userValidation from "../validation/userValidation.js";
@@ -22,8 +22,7 @@ const signup = (req, res, next) => {
   bcrypt
     .hash(body.password, 10)
     .then((hash) => {
-      user
-        .create({ email: cryptojsEmail, password: hash })
+      User.create({ email: cryptojsEmail, password: hash })
         .then(() => {
           res.status(201).json({ message: "utilisateur créé" });
         })
@@ -38,8 +37,7 @@ const login = (req, res, next) => {
 
   const cryptojsEmail = CryptoJS.HmacSHA256(req.body.email, process.env.EMAIL).toString();
 
-  user
-    .findOne({ where: { email: cryptojsEmail } })
+  User.findOne({ where: { email: cryptojsEmail } })
     .then((user) => {
       if (!user) console.log({ message: `There is no record of the email.` });
       else {

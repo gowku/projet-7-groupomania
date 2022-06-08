@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { user } from "../models/user.js";
+import { User } from "../models/user.js";
 
 const auth = async (req, res, next) => {
   // console.log(req);
@@ -10,7 +10,7 @@ const auth = async (req, res, next) => {
 
     const userId = decodedToken.userId;
 
-    const userData = await user.findByPk(userId);
+    const userData = await User.findByPk(userId);
 
     if (!userData) {
       throw "Invalid user ID";

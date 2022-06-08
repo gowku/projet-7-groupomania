@@ -1,8 +1,7 @@
-import { post } from "../models/post.js";
+import { Post } from "../models/post.js";
 
 const getAllPost = (req, res, next) => {
-  post
-    .findAll()
+  Post.findAll()
     .then((post) => {
       res.status(200).json(post);
     })
@@ -13,12 +12,11 @@ const getAllPost = (req, res, next) => {
     });
 };
 const createPost = (req, res, next) => {
-  post
-    .create({
-      userId: req.body.userId,
-      texte: req.body.texte,
-      imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
-    })
+  Post.create({
+    userId: req.body.userId,
+    texte: req.body.texte,
+    imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
+  })
     .then(() => {
       res.status(201).json({ message: "post créé" });
     })
@@ -34,66 +32,30 @@ const commentPost = (req, res, next) => {
 };
 
 const modifyPost = (req, res, next) => {
-  // console.log("je suis ici 1 !!!!!!!!!!!!!!");
-  // console.log(req.params.id);
-  // post
-  //   .findOne({
-  //     where: {
-  //       userId: req.params.id,
-  //     },
-  //   })
-  //   .then(() => {
-  //     const postObject = req.file
-  //       ? {
-  //           userId: req.body.userId,
-  //           texte: req.body.texte,
-  //           imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
-  //         }
-  //       : { userId: req.body.userId, texte: req.body.texte };
+  const postId = req.params.postId;
 
-  //     post
-  //       .update({ where: { id: req.params.id } }, { ...postObject, userId: req.params.id })
-  //       .then(() => {
-  //         res.status(200).json({
-  //           message: "post updated successfully!",
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         res.status(400).json({
-  //           error,
-  //         });
-  //       });
-  //   })
-  //   .catch((error) => res.status(500).json(error));
+  Post.findByPk(postId)
+    .then(async (post) => {
+      // console.log(post);
+      if (post) {
+        if (post.userId === req.user.id || req.user.isAdmin) {
+          if (req.body.texte) post.texte = req.body.texte;
+          if (req.file) post.file = `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`;
 
-  // const postObject = req.file
-  //   ? {
-  //       userId: req.body.userId,
-  //       texte: req.body.texte,
-  //       imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
-  //     }
-  //   : { userId: req.body.userId, texte: req.body.texte };
-
-  // console.log(postObject);
-  post
-    .update(
-      { where: { userId: req.params.id } },
-      {
-        userId: req.body.userId,
-        texte: req.body.texte,
-        imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
+          await post.save();
+          res.status(200).json(post);
+        } else {
+          res.status(401).json({
+            error: new Error("Invalid user!"),
+          });
+        }
+      } else {
+        res.status(404).json({
+          error: new Error("post not found"),
+        });
       }
-    )
-    .then(() => {
-      res.status(200).json({
-        message: "post updated successfully!",
-      });
     })
-    .catch((error) => {
-      res.status(400).json({
-        error,
-      });
-    });
+    .catch((error) => res.status(500).json(error));
 };
 
 const modifyComment = (req, res, next) => {

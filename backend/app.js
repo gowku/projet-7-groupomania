@@ -1,21 +1,24 @@
-import express from "express";
-
-import database from "./database/db.js";
-
 import path from "path";
 import { fileURLToPath } from "url";
 const __dirname = fileURLToPath(import.meta.url);
+import express from "express";
+import bodyParser from "body-parser";
+
+import database from "./database/db.js";
+import { User } from "./models/user.js";
+import { Post } from "./models/post.js";
+import { Comment } from "./models/comment.js";
+import { CommentPost } from "./models/commentPost.js";
 
 import "dotenv/config";
 
 import morgan from "morgan";
 
-import bodyParser from "body-parser";
+const app = express();
 
 import userRoutes from "./routes/user.js";
 import postRoutes from "./routes/post.js";
-
-const app = express();
+import { commentPost } from "./controllers/post.js";
 
 app.use(morgan("dev"));
 
@@ -29,8 +32,14 @@ app.use((req, res, next) => {
   next();
 });
 
+User.hasMany(Post);
+Post.belongsTo(User);
+Comment.hasOne(Post);
+Post.belongsToMany(Comment, { through: commentPost });
+
 database
-  .sync()
+  .sync({ force: true })
+  // .sync()
   .then(console.log("connexion a la base de donnée réussi"))
   .catch((error) => console.log(error));
 

@@ -3,7 +3,7 @@ import db from "../database/db.js";
 
 const { DataTypes } = sequelize;
 
-const post = db.define("post", {
+const Post = db.define("post", {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
@@ -28,4 +28,4 @@ const post = db.define("post", {
   },
 });
 
-export { post };
+export { Post };
