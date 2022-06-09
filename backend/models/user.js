@@ -27,12 +27,4 @@ const User = db.define("user", {
   },
 });
 
-// user.associate = function(models) {
-//   user.hasMany(models.Article);
-// };
-// return User;
-
-// user.hasOne(role);
-// role.belongsTo(user);
-
 export { User };

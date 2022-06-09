@@ -11,6 +11,7 @@ const getAllPost = (req, res, next) => {
       });
     });
 };
+
 const createPost = (req, res, next) => {
   Post.create({
     userId: req.body.userId,
@@ -27,16 +28,12 @@ const postLiked = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
 
-const commentPost = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
-};
-
 const modifyPost = (req, res, next) => {
   const postId = req.params.postId;
-
+  console.log(postId);
   Post.findByPk(postId)
     .then(async (post) => {
-      // console.log(post);
+      console.log(post);
       if (post) {
         if (post.userId === req.user.id || req.user.isAdmin) {
           if (req.body.texte) post.texte = req.body.texte;
@@ -58,30 +55,8 @@ const modifyPost = (req, res, next) => {
     .catch((error) => res.status(500).json(error));
 };
 
-const modifyComment = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
-};
-
 const deletePost = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
 };
 
-const deleteComment = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
-};
-
-const modifyPassword = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
-};
-
-export {
-  getAllPost,
-  createPost,
-  postLiked,
-  commentPost,
-  modifyPost,
-  modifyComment,
-  deletePost,
-  deleteComment,
-  modifyPassword,
-};
+export { getAllPost, createPost, postLiked, modifyPost, deletePost };

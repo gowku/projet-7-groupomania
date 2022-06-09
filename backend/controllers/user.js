@@ -67,4 +67,8 @@ const remove = (req, res, next) => {
   console.log(req.body);
 };
 
-export { signup, login, remove };
+const modifyPassword = (req, res, next) => {
+  console.log("je suis ici !!!!!!!!!!!!!!");
+};
+
+export { signup, login, remove, modifyPassword };

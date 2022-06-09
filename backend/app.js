@@ -18,7 +18,7 @@ const app = express();
 
 import userRoutes from "./routes/user.js";
 import postRoutes from "./routes/post.js";
-import { commentPost } from "./controllers/post.js";
+import commentRoutes from "./routes/comment.js";
 
 app.use(morgan("dev"));
 
@@ -34,12 +34,19 @@ app.use((req, res, next) => {
 
 User.hasMany(Post);
 Post.belongsTo(User);
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
+
 Comment.hasOne(Post);
-Post.belongsToMany(Comment, { through: commentPost });
+Comment.belongsToMany(Post, { through: CommentPost });
+Post.belongsToMany(Comment, { through: CommentPost }, { constraints: false });
+
+// Post.belongsTo(Comment, { through: CommentPost });
 
 database
-  .sync({ force: true })
-  // .sync()
+  // .sync({ force: true })
+  .sync()
   .then(console.log("connexion a la base de donnée réussi"))
   .catch((error) => console.log(error));
 
@@ -51,5 +58,6 @@ app.use(`/images`, express.static(path.join(__dirname, `images`)));
 
 app.use(`/api/auth`, userRoutes);
 app.use(`/api/posts`, postRoutes);
+app.use(`/api/posts`, commentRoutes);
 
 export default app;
