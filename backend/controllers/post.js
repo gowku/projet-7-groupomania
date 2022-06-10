@@ -57,6 +57,34 @@ const modifyPost = (req, res, next) => {
 
 const deletePost = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
+  const postId = req.params.postId;
+
+  // if (post.userId === req.user.id || req.user.isAdmin) {
+  // } else {
+  //   res.status(401).json({
+  //     error: new Error("Invalid user!"),
+  //   });
+  // }
+
+  Post.findByPk(postId)
+    .then((post) => {
+      return post.destroy();
+    })
+    .then(() => res.status(200).json({ message: "Post supprimé !" }))
+    .catch((error) => res.status(400).json({ error }));
+
+  // Post.findByPk(postId)
+  //   .then((post) => {
+  //     console.log(post);
+  //     const filename = post.imageUrl.split("/images/")[1];
+  //     fs.unlink(`images/${filename}`, () => {
+  //       post
+  //         .destroy()
+  //         .then(() => res.status(200).json({ message: "Post supprimé !" }))
+  //         .catch((error) => res.status(400).json({ error }));
+  //     });
+  // })
+  // .catch((error) => res.status(500).json({ error }));
 };
 
 export { getAllPost, createPost, postLiked, modifyPost, deletePost };

@@ -10,7 +10,6 @@ const commentPost = (req, res, next) => {
 
   Post.findByPk(postId)
     .then(async (post) => {
-      console.log(req.model);
       await Comment.create(
         {
           userId: req.body.userId,
@@ -56,6 +55,14 @@ const modifyComment = (req, res, next) => {
 
 const deleteComment = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
+
+  const commentId = req.params.commentId;
+  Post.findByPk(commentId)
+    .then((comment) => {
+      return comment.destroy();
+    })
+    .then(() => res.status(200).json({ message: "comment supprimé !" }))
+    .catch((error) => res.status(400).json({ error }));
 };
 
 export { commentPost, modifyComment, deleteComment };

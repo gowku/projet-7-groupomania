@@ -38,10 +38,11 @@ Post.belongsTo(User);
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-Comment.hasOne(Post);
+// Comment.hasOne(Post);
+Post.belongsToMany(Comment, { through: CommentPost });
 Comment.belongsToMany(Post, { through: CommentPost });
-Post.belongsToMany(Comment, { through: CommentPost }, { constraints: false });
 
+// , { constraints: false }
 // Post.belongsTo(Comment, { through: CommentPost });
 
 database
