@@ -4,7 +4,7 @@ import { commentPost, modifyComment, deleteComment } from "../controllers/commen
 
 const router = Router();
 
-router.post(`/:postId/comment`, auth, commentPost);
+router.post(`/:postId`, auth, commentPost);
 router.put(`/:postId/:commentId`, auth, modifyComment);
 router.delete(`/:postId/:commentId`, auth, deleteComment);
 

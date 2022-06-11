@@ -19,6 +19,7 @@ const app = express();
 import userRoutes from "./routes/user.js";
 import postRoutes from "./routes/post.js";
 import commentRoutes from "./routes/comment.js";
+import likeRoutes from "./routes/like.js";
 
 app.use(morgan("dev"));
 
@@ -38,12 +39,9 @@ Post.belongsTo(User);
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-Comment.hasOne(Post, { through: `CommentPost` });
+// Comment.hasOne(Post, { through: `CommentPost` });
+Comment.belongsToMany(Post, { through: `CommentPost` });
 Post.belongsToMany(Comment, { through: `CommentPost` });
-// Comment.belongsToMany(Post, { through: `CommentPost` });
-
-// , { constraints: false }
-// Post.belongsTo(Comment, { through: CommentPost });
 
 database
   // .sync({ force: true })
@@ -59,6 +57,7 @@ app.use(`/images`, express.static(path.join(__dirname, `images`)));
 
 app.use(`/api/auth`, userRoutes);
 app.use(`/api/posts`, postRoutes);
-app.use(`/api/posts`, commentRoutes);
+app.use(`/api/comment`, commentRoutes);
+app.use(`/api/like`, likeRoutes);
 
 export default app;

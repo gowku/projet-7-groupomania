@@ -25,7 +25,7 @@ const createPost = (req, res, next) => {
 };
 
 const postLiked = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
+  console.log("je dans like !!!!!!!!!!!!!!");
 };
 
 const modifyPost = (req, res, next) => {
