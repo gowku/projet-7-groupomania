@@ -1,25 +1,21 @@
 import { Post } from "../models/post.js";
 import { Comment } from "../models/comment.js";
-import { CommentPost } from "../models/commentPost.js";
+// import { CommentPost } from "../models/commentPost.js";
 
 const commentPost = (req, res, next) => {
   console.log("je suis commente un post");
   const postId = req.params.postId;
-  const comment = req.body.texte;
+  const commentaire = req.body.texte;
   //   console.log(req.user);
 
   Post.findByPk(postId)
     .then(async (post) => {
-      await Comment.create(
-        {
-          userId: req.body.userId,
-          texte: comment,
-          CommentPosts: [{ postId: req.params.postId }],
-        },
-        {
-          include: [CommentPost],
-        }
-      );
+      console.log(req.body);
+      const comment = await Comment.create({
+        userId: req.body.userId,
+        texte: commentaire,
+      });
+      await post.addComment(comment);
       res.status(201).json({ message: "comment créé" });
     })
 
@@ -31,9 +27,9 @@ const modifyComment = (req, res, next) => {
   //   console.log(req.params);
 
   const commentId = req.params.commentId;
+
   Comment.findByPk(commentId)
     .then(async (comment) => {
-      //   await console.log(comment);
       if (comment) {
         if (comment.userId === req.user.id || req.user.isAdmin) {
           if (req.body.texte) comment.texte = req.body.texte;
