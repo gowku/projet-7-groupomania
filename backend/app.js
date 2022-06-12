@@ -8,6 +8,7 @@ import database from "./database/db.js";
 import { User } from "./models/user.js";
 import { Post } from "./models/post.js";
 import { Comment } from "./models/comment.js";
+import { Like } from "./models/like.js";
 // import { CommentPost } from "./models/commentPost.js";
 
 import "dotenv/config";
@@ -39,7 +40,12 @@ Post.belongsTo(User);
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-// Comment.hasOne(Post, { through: `CommentPost` });
+User.belongsToMany(Like, { through: `LikeUser` });
+Like.belongsTo(User, { through: `LikeUser` });
+
+Like.hasOne(Post);
+Post.belongsToMany(Like, { through: `PostLike` });
+
 Comment.belongsToMany(Post, { through: `CommentPost` });
 Post.belongsToMany(Comment, { through: `CommentPost` });
 

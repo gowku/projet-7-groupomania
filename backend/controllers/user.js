@@ -10,7 +10,7 @@ import userValidation from "../validation/userValidation.js";
 const signup = (req, res, next) => {
   const { body } = req;
   // console.log("inscription");
-  // console.log(body.email);
+  console.log(body.email);
 
   const { error } = userValidation(body);
   if (error) return res.status(401).json(error.details[0].message);
@@ -22,7 +22,13 @@ const signup = (req, res, next) => {
   bcrypt
     .hash(body.password, 10)
     .then((hash) => {
-      User.create({ email: cryptojsEmail, password: hash })
+      User.create({
+        email: cryptojsEmail,
+        password: hash,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        birthDate: body.birthDate,
+      })
         .then(() => {
           res.status(201).json({ message: "utilisateur créé" });
         })

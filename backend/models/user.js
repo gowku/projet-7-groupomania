@@ -19,6 +19,22 @@ const User = db.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  birthDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  profilPic: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   isAdmin: {
     type: DataTypes.BOOLEAN,
     defaultValue: 0,

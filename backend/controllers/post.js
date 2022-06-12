@@ -24,10 +24,6 @@ const createPost = (req, res, next) => {
     .catch((error) => res.status(500).json(error));
 };
 
-const postLiked = (req, res, next) => {
-  console.log("je dans like !!!!!!!!!!!!!!");
-};
-
 const modifyPost = (req, res, next) => {
   const postId = req.params.postId;
   console.log(postId);
@@ -87,4 +83,4 @@ const deletePost = (req, res, next) => {
   // .catch((error) => res.status(500).json({ error }));
 };
 
-export { getAllPost, createPost, postLiked, modifyPost, deletePost };
+export { getAllPost, createPost, modifyPost, deletePost };
