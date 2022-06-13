@@ -12,6 +12,4 @@ router.put(`/:postId`, auth, Multer, modifyPost);
 
 router.delete(`/:postId`, auth, deletePost);
 
-// router.put(`/user:id`, auth, modifyPassword);
-
 export default router;

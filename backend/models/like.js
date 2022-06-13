@@ -10,6 +10,11 @@ const Like = db.define("like", {
     autoIncrement: true,
     allowNull: false,
   },
+  value: {
+    type: DataTypes.TINYINT,
+    defaultValue: 0,
+    allowNull: false,
+  },
 });
 
 export { Like };

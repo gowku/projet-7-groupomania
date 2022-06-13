@@ -40,14 +40,15 @@ Post.belongsTo(User);
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-User.belongsToMany(Like, { through: `LikeUser` });
-Like.belongsTo(User, { through: `LikeUser` });
-
-Like.hasOne(Post);
-Post.belongsToMany(Like, { through: `PostLike` });
-
 Comment.belongsToMany(Post, { through: `CommentPost` });
 Post.belongsToMany(Comment, { through: `CommentPost` });
+
+User.belongsToMany(Like, { through: `LikeUser` });
+Like.belongsTo(User, { through: `LikeUser` });
+Like.belongsTo(Post, { through: `LikeUser` });
+
+// Like.hasOne(Post);
+Post.belongsToMany(Like, { through: `PostLike` });
 
 database
   // .sync({ force: true })

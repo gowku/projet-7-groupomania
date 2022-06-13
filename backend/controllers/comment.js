@@ -10,7 +10,7 @@ const commentPost = (req, res, next) => {
 
   Post.findByPk(postId)
     .then(async (post) => {
-      console.log(req.body);
+      // console.log(req.body);
       const comment = await Comment.create({
         userId: req.body.userId,
         texte: commentaire,
