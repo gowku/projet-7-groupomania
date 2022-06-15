@@ -1,3 +1,4 @@
+import fs from "fs";
 import { Post } from "../models/post.js";
 
 const getAllPost = (req, res, next) => {
@@ -26,10 +27,9 @@ const createPost = (req, res, next) => {
 
 const modifyPost = (req, res, next) => {
   const postId = req.params.postId;
-  console.log(postId);
+
   Post.findByPk(postId)
     .then(async (post) => {
-      console.log(post);
       if (post) {
         if (post.userId === req.user.id || req.user.isAdmin) {
           if (req.body.texte) post.texte = req.body.texte;
@@ -62,25 +62,40 @@ const deletePost = (req, res, next) => {
   //   });
   // }
 
-  Post.findByPk(postId)
-    .then((post) => {
-      return post.destroy();
-    })
-    .then(() => res.status(200).json({ message: "Post supprimé !" }))
-    .catch((error) => res.status(400).json({ error }));
-
   // Post.findByPk(postId)
   //   .then((post) => {
-  //     console.log(post);
   //     const filename = post.imageUrl.split("/images/")[1];
+
   //     fs.unlink(`images/${filename}`, () => {
+  //       console.log(post);
   //       post
   //         .destroy()
   //         .then(() => res.status(200).json({ message: "Post supprimé !" }))
   //         .catch((error) => res.status(400).json({ error }));
   //     });
-  // })
-  // .catch((error) => res.status(500).json({ error }));
+  //   })
+  //   .catch((error) => res.status(500).json({ error }));
+
+  Post.findByPk(postId)
+    .then((post) => {
+      const filename = post.imageUrl.split("/images/")[1];
+
+      if (post.userId === req.user.id || req.user.isAdmin) {
+        fs.unlink(`images/${filename}`, () => {
+          console.log(post);
+          post
+            .destroy()
+            .then(() => res.status(200).json({ message: "Post supprimé !" }))
+            .catch((error) => res.status(400).json({ error }));
+        });
+      } else {
+        res.status(401).json({
+          error: new Error("Invalid user!"),
+        });
+      }
+    })
+
+    .catch((error) => res.status(500).json({ error }));
 };
 
 export { getAllPost, createPost, modifyPost, deletePost };

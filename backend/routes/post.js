@@ -10,6 +10,6 @@ router.post(`/`, auth, Multer, createPost);
 
 router.put(`/:postId`, auth, Multer, modifyPost);
 
-router.delete(`/:postId`, auth, deletePost);
+router.delete(`/:postId`, auth, Multer, deletePost);
 
 export default router;

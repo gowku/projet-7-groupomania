@@ -1,18 +1,16 @@
 import { Post } from "../models/post.js";
 import { Comment } from "../models/comment.js";
-// import { CommentPost } from "../models/commentPost.js";
 
 const commentPost = (req, res, next) => {
   console.log("je suis commente un post");
   const postId = req.params.postId;
+  const userId = req.body.userId;
   const commentaire = req.body.texte;
-  //   console.log(req.user);
 
   Post.findByPk(postId)
     .then(async (post) => {
-      // console.log(req.body);
       const comment = await Comment.create({
-        userId: req.body.userId,
+        userId: userId,
         texte: commentaire,
       });
       await post.addComment(comment);
@@ -23,9 +21,6 @@ const commentPost = (req, res, next) => {
 };
 
 const modifyComment = (req, res, next) => {
-  console.log("je suis ici modifier comment !!!!!!!!!!!!!!");
-  //   console.log(req.params);
-
   const commentId = req.params.commentId;
 
   Comment.findByPk(commentId)
