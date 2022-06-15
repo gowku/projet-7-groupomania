@@ -6,6 +6,6 @@ const router = Router();
 
 router.post(`/:postId`, auth, commentPost);
 router.put(`/:postId/:commentId`, auth, modifyComment);
-router.delete(`/:postId/:commentId`, auth, deleteComment);
+router.delete(`/:userId/:postId/:commentId`, auth, deleteComment);
 
 export default router;

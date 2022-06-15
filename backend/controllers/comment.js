@@ -46,14 +46,18 @@ const modifyComment = (req, res, next) => {
 
 const deleteComment = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
-
   const commentId = req.params.commentId;
-  Post.findByPk(commentId)
-    .then((comment) => {
-      return comment.destroy();
-    })
-    .then(() => res.status(200).json({ message: "comment supprimé !" }))
-    .catch((error) => res.status(400).json({ error }));
+
+  Comment.findByPk(commentId).then(async (comment) => {
+    console.log(comment);
+
+    if (comment.userId === req.user.id || req.user.isAdmin) {
+      await comment.destroy();
+      res.status(200).json({ message: "comment supprimé !" });
+    } else {
+      (error) => res.status(400).json({ error });
+    }
+  });
 };
 
 export { commentPost, modifyComment, deleteComment };

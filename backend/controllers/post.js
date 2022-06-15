@@ -17,7 +17,7 @@ const createPost = (req, res, next) => {
   Post.create({
     userId: req.body.userId,
     texte: req.body.texte,
-    imageUrl: `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`,
+    imageUrl: `${req.protocol}://${req.get(`host`)}/images/postPic/${req.file.filename}`,
   })
     .then(() => {
       res.status(201).json({ message: "post créé" });
@@ -33,7 +33,7 @@ const modifyPost = (req, res, next) => {
       if (post) {
         if (post.userId === req.user.id || req.user.isAdmin) {
           if (req.body.texte) post.texte = req.body.texte;
-          if (req.file) post.file = `${req.protocol}://${req.get(`host`)}/images/${req.file.filename}`;
+          if (req.file) post.file = `${req.protocol}://${req.get(`host`)}/images/postPic/${req.file.filename}`;
 
           await post.save();
           res.status(200).json(post);
@@ -55,33 +55,12 @@ const deletePost = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
   const postId = req.params.postId;
 
-  // if (post.userId === req.user.id || req.user.isAdmin) {
-  // } else {
-  //   res.status(401).json({
-  //     error: new Error("Invalid user!"),
-  //   });
-  // }
-
-  // Post.findByPk(postId)
-  //   .then((post) => {
-  //     const filename = post.imageUrl.split("/images/")[1];
-
-  //     fs.unlink(`images/${filename}`, () => {
-  //       console.log(post);
-  //       post
-  //         .destroy()
-  //         .then(() => res.status(200).json({ message: "Post supprimé !" }))
-  //         .catch((error) => res.status(400).json({ error }));
-  //     });
-  //   })
-  //   .catch((error) => res.status(500).json({ error }));
-
   Post.findByPk(postId)
     .then((post) => {
       const filename = post.imageUrl.split("/images/")[1];
 
       if (post.userId === req.user.id || req.user.isAdmin) {
-        fs.unlink(`images/${filename}`, () => {
+        fs.unlink(`images/postPic/${filename}`, () => {
           console.log(post);
           post
             .destroy()
