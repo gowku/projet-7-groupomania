@@ -18,10 +18,6 @@ const postLiked = (req, res, next) => {
         res.status(201).json({ message: "like créé" });
       } else {
         const liked = await Like.findOne({ where: { postId: postId, userId: userId } });
-
-        console.log("je suis la!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        console.log(liked.id);
-
         const [like, created] = await Like.upsert({
           id: liked.id,
           value: likeValue,

@@ -1,9 +1,9 @@
+import fs from "fs";
 import CryptoJS from "crypto-js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { User } from "../models/user.js";
-// import { role } from "../models/role.js";
 
 import userValidation from "../validation/userValidation.js";
 
@@ -16,8 +16,6 @@ const signup = (req, res, next) => {
   if (error) return res.status(401).json(error.details[0].message);
 
   const cryptojsEmail = CryptoJS.HmacSHA256(body.email, process.env.EMAIL).toString();
-  // console.log("je suis ici !!!!!");
-  // console.log(cryptojsEmail);
 
   bcrypt
     .hash(body.password, 10)
@@ -38,9 +36,6 @@ const signup = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  // console.log("je me connecte");
-  // console.log(req.body);
-
   const cryptojsEmail = CryptoJS.HmacSHA256(req.body.email, process.env.EMAIL).toString();
 
   User.findOne({ where: { email: cryptojsEmail } })
@@ -70,11 +65,58 @@ const login = (req, res, next) => {
 
 const remove = (req, res, next) => {
   console.log("je supprime le user");
-  console.log(req.body);
+
+  const userId = req.params.userId;
+  User.findByPk(userId)
+    .then((user) => {
+      const filename = user.profilPic.split("/images/profilPic")[1];
+
+      fs.unlink(`images/postPic/${filename}`, () => {
+        user
+          .destroy()
+          .then(() => res.status(200).json({ message: "User supprimé !" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
+    })
+    .catch(
+      res.status(401).json({
+        error: new Error("Invalid user!"),
+      })
+    );
 };
 
-const modifyPassword = (req, res, next) => {
+const modifyProfil = (req, res, next) => {
   console.log("je suis ici !!!!!!!!!!!!!!");
+  console.log(req.body);
+  console.log(req.params);
+  console.log(req.file);
+
+  const userId = req.params.userId;
+  const body = req.body;
+  const cryptojsEmail = CryptoJS.HmacSHA256(body.email, process.env.EMAIL).toString();
+
+  User.findByPk(userId)
+    .then(async (user) => {
+      if (user) {
+        if (body.email) user.mail = cryptojsEmail;
+        // if (body.password) user.password = "";
+        if (body.firstName) user.firstName = body.firstName;
+        if (body.lastName) user.lastName = body.lastName;
+        if (body.birtdate) user.birtdate = body.birtdate;
+        if (body.file) user.profilPic = `${req.protocol}://${req.get(`host`)}/images/postPic/${req.file.filename}`;
+        await user.save();
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({
+          error: new Error("user not found"),
+        });
+      }
+    })
+    .catch(
+      res.status(500).json({
+        error: new Error("error"),
+      })
+    );
 };
 
-export { signup, login, remove, modifyPassword };
+export { signup, login, remove, modifyProfil };

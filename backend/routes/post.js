@@ -1,15 +1,15 @@
 import { Router } from "express";
 import { auth } from "../middleware/auth.js";
-import { Multer } from "../middleware/multer-config.js";
+import { MulterPost } from "../middleware/multer-config.js";
 import { getAllPost, createPost, modifyPost, deletePost } from "../controllers/post.js";
 
 const router = Router();
 
 router.get(`/`, auth, getAllPost);
-router.post(`/`, auth, Multer, createPost);
+router.post(`/`, auth, MulterPost, createPost);
 
-router.put(`/:postId`, auth, Multer, modifyPost);
+router.put(`/:postId`, auth, MulterPost, modifyPost);
 
-router.delete(`/:postId`, auth, Multer, deletePost);
+router.delete(`/:postId`, auth, MulterPost, deletePost);
 
 export default router;

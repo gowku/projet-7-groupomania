@@ -33,6 +33,7 @@ const User = db.define("user", {
   },
   profilPic: {
     type: DataTypes.STRING,
+    defaultValue: "http://localhost:3000/images/profilPic/defaultProfil.jpg",
     allowNull: true,
   },
   isAdmin: {

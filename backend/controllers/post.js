@@ -57,7 +57,7 @@ const deletePost = (req, res, next) => {
 
   Post.findByPk(postId)
     .then((post) => {
-      const filename = post.imageUrl.split("/images/")[1];
+      const filename = post.imageUrl.split("/images/postPic")[1];
 
       if (post.userId === req.user.id || req.user.isAdmin) {
         fs.unlink(`images/postPic/${filename}`, () => {

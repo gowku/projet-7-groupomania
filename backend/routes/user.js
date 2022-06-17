@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { auth } from "../middleware/auth.js";
-import { Multer } from "../middleware/multer-config.js";
-import { signup, login, remove, modifyPassword } from "../controllers/user.js";
+import { MulterProfil } from "../middleware/multer-config.js";
+import { signup, login, remove, modifyProfil } from "../controllers/user.js";
 
 const router = Router();
 
 router.post(`/signup`, signup);
 router.post(`/login`, login);
-router.put(`/:userId`, auth, modifyPassword);
-router.delete(`/user/:id`, remove);
+router.put(`/:userId`, auth, MulterProfil, modifyProfil);
+router.delete(`/:userId`, remove);
 
 export default router;
