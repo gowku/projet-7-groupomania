@@ -30,4 +30,5 @@ const storageProfil = multer.diskStorage({
 
 const MulterPost = multer({ storage: storagePost }).single("file");
 const MulterProfil = multer({ storage: storageProfil }).single("file");
+
 export { MulterPost, MulterProfil };

@@ -64,32 +64,27 @@ const login = (req, res, next) => {
 };
 
 const remove = (req, res, next) => {
-  console.log("je supprime le user");
-
   const userId = req.params.userId;
+
   User.findByPk(userId)
     .then((user) => {
       const filename = user.profilPic.split("/images/profilPic")[1];
 
-      fs.unlink(`images/postPic/${filename}`, () => {
+      fs.unlink(`images/profilPic/${filename}`, () => {
         user
           .destroy()
           .then(() => res.status(200).json({ message: "User supprimé !" }))
           .catch((error) => res.status(400).json({ error }));
       });
     })
-    .catch(
-      res.status(401).json({
-        error: new Error("Invalid user!"),
-      })
-    );
+    .catch((error) => res.status(500).json({ error }));
 };
 
 const modifyProfil = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
+  console.log("je suis ici !!!!!!!!!!!!!!!!!!!");
   console.log(req.body);
-  console.log(req.params);
-  console.log(req.file);
+  // console.log(req.params);
+  // console.log(req.file);
 
   const userId = req.params.userId;
   const body = req.body;
@@ -98,12 +93,13 @@ const modifyProfil = (req, res, next) => {
   User.findByPk(userId)
     .then(async (user) => {
       if (user) {
-        if (body.email) user.mail = cryptojsEmail;
+        if (body.email) user.email = cryptojsEmail;
         // if (body.password) user.password = "";
         if (body.firstName) user.firstName = body.firstName;
         if (body.lastName) user.lastName = body.lastName;
-        if (body.birtdate) user.birtdate = body.birtdate;
-        if (body.file) user.profilPic = `${req.protocol}://${req.get(`host`)}/images/postPic/${req.file.filename}`;
+        if (body.birthDate) user.birthDate = body.birthDate;
+        // if (body.file) user.profilPic = `${req.protocol}://${req.get(`host`)}/images/profilPic/${req.file.filename}`;
+
         await user.save();
         res.status(200).json(user);
       } else {

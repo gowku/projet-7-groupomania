@@ -52,7 +52,6 @@ const modifyPost = (req, res, next) => {
 };
 
 const deletePost = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
   const postId = req.params.postId;
 
   Post.findByPk(postId)
@@ -61,7 +60,6 @@ const deletePost = (req, res, next) => {
 
       if (post.userId === req.user.id || req.user.isAdmin) {
         fs.unlink(`images/postPic/${filename}`, () => {
-          console.log(post);
           post
             .destroy()
             .then(() => res.status(200).json({ message: "Post supprimé !" }))
