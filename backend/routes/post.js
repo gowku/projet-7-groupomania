@@ -7,9 +7,7 @@ const router = Router();
 
 router.get(`/`, auth, getAllPost);
 router.post(`/`, auth, MulterPost, createPost);
-
 router.put(`/:postId`, auth, MulterPost, modifyPost);
-
 router.delete(`/:postId`, auth, MulterPost, deletePost);
 
 export default router;

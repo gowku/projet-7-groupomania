@@ -14,7 +14,7 @@ const postLiked = (req, res, next) => {
       });
       if (created) {
         await post.addLike(like);
-        console.log("je suis ici!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        // console.log("je suis ici!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         res.status(201).json({ message: "like créé" });
       } else {
         const liked = await Like.findOne({ where: { postId: postId, userId: userId } });

@@ -98,7 +98,7 @@ const modifyProfil = (req, res, next) => {
         if (body.firstName) user.firstName = body.firstName;
         if (body.lastName) user.lastName = body.lastName;
         if (body.birthDate) user.birthDate = body.birthDate;
-        // if (body.file) user.profilPic = `${req.protocol}://${req.get(`host`)}/images/profilPic/${req.file.filename}`;
+        if (req.file) user.profilPic = `${req.protocol}://${req.get(`host`)}/images/profilPic/${req.file.filename}`;
 
         await user.save();
         res.status(200).json(user);
@@ -108,11 +108,11 @@ const modifyProfil = (req, res, next) => {
         });
       }
     })
-    .catch(
+    .catch((err) => {
       res.status(500).json({
         error: new Error("error"),
-      })
-    );
+      });
+    });
 };
 
 export { signup, login, remove, modifyProfil };
