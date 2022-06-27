@@ -1,0 +1,55 @@
+.bg {
+  position: absolute;
+}
+.bg_img {
+  height: 100vh;
+  width: 100vw;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.logo {
+  position: absolute;
+  z-index: 1;
+  top: 2rem;
+  left: 2rem;
+}
+
+.card {
+  width: 22rem;
+  height: 15rem;
+  top: 15rem;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  border: 1px solid black;
+  background-color: #ffd7d7;
+  border-radius: 1rem;
+}
+.card h1 {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 8rem;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  color: #4e5166;
+  background-color: #fd2d01;
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  margin-left: 1rem;
+}
+form div {
+  margin-top: 0.2rem;
+}/*# sourceMappingURL=acceuil.css.map */
