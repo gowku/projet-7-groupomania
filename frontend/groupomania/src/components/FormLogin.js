@@ -17,6 +17,8 @@ const FormLogin = (props) => {
     setUserInput({ ...userInput, enteredPassword: e.target.value });
   };
 
+  const saveUserInfo = () => {};
+
   const formSubmitHandler = (e) => {
     e.preventDefault();
     axios
@@ -25,13 +27,17 @@ const FormLogin = (props) => {
         password: userInput.enteredPassword,
       })
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         // envoyer token dans le local storage
+        const userInfo = response.data;
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        navigate("/home", { replace: true });
       })
       .catch(function (error) {
-        console.log(error);
+        if (error) {
+          navigate("/", { replace: true });
+        }
       });
-    navigate("/home", { replace: true });
   };
 
   return (

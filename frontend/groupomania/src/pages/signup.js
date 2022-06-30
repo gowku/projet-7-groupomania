@@ -1,6 +1,6 @@
 import Background from "../components/Background.js";
 
-import Logo from "../components/Logo";
+import Logo from "../components/LogoAcceuil";
 import FormSignup from "../components/FormSignup";
 
 const Signup = () => {

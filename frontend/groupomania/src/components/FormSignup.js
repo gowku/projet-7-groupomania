@@ -46,7 +46,7 @@ const FormInscription = (props) => {
       })
       .then(function (response) {
         console.log(response);
-        navigate("/", { replace: true });
+        navigate("/login", { replace: true });
       })
       .catch(function (error) {
         console.log(error);

@@ -1,12 +1,15 @@
 import { NavLink } from "react-router-dom";
-import Logo from "./Logo";
+import Logo from "./LogoHome";
 
 const Nav = () => {
-  <nav>
-    <Logo />
-    <NavLink to={"/home"}>Home</NavLink>
-    <NavLink to={"/user"}>User</NavLink>
-    <NavLink to={"/posts"}>Post</NavLink>
-  </nav>;
+  return (
+    <nav>
+      <Logo />
+      <div className="links">
+        <NavLink to={"/home"}>Home</NavLink>
+        <NavLink to={"/home/:userId"}>User</NavLink>
+      </div>
+    </nav>
+  );
 };
 export default Nav;
