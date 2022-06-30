@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const FormInscription = () => {
+const FormInscription = (props) => {
   let navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     enteredEmail: "",
@@ -46,11 +46,11 @@ const FormInscription = () => {
       })
       .then(function (response) {
         console.log(response);
+        navigate("/", { replace: true });
       })
       .catch(function (error) {
         console.log(error);
       });
-    navigate("/", { replace: true });
   };
 
   return (

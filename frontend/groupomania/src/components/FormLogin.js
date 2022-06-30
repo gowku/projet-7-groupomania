@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 const FormLogin = (props) => {
+  let navigate = useNavigate();
+
   const [userInput, setUserInput] = useState({
     enteredEmail: "",
     enteredPassword: "",
@@ -24,10 +26,12 @@ const FormLogin = (props) => {
       })
       .then(function (response) {
         console.log(response.data);
+        // envoyer token dans le local storage
       })
       .catch(function (error) {
         console.log(error);
       });
+    navigate("/home", { replace: true });
   };
 
   return (
@@ -42,9 +46,6 @@ const FormLogin = (props) => {
       </div>
       <button type="submit">se connecter</button>
       <p>Si vous n'avez pas encore de compte vous pouvez en creer un </p>
-      {/* <button onClick={props.toggleBool} >
-        Creer un compte
-      </button> */}
       <NavLink to="/signup">S'inscrire </NavLink>
     </form>
   );
