@@ -115,4 +115,20 @@ const modifyProfil = (req, res, next) => {
     });
 };
 
-export { signup, login, remove, modifyProfil };
+const getOneUser = (req, res, next) => {
+  console.log("je suis la !!!!!!!!!!!!!!!!!!!");
+  const userId = req.params.userId;
+
+  User.findByPk(userId)
+    .then((user) => {
+      // console.log(user);
+      res.status(200).json(user);
+    })
+    .catch(
+      res.status(404).json({
+        error: new Error("user not found"),
+      })
+    );
+};
+
+export { signup, login, remove, modifyProfil, getOneUser };

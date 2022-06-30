@@ -2,13 +2,11 @@ import Post from "./Post";
 
 const Posts = () => {
   return (
-    <div>
-      <ul>
-        <li>
-          <Post />
-        </li>
-      </ul>
-    </div>
+    <ul>
+      <li>
+        <Post />
+      </li>
+    </ul>
   );
 };
 export default Posts;
