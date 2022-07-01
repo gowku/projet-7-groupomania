@@ -1,7 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
 import axios from "axios";
 import Nav from "../components/nav";
-import Posts from "../components/Posts";
+import UserInfo from "./UserInfo";
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 const userId = userInfo.userId;
@@ -31,14 +31,12 @@ getUserInfo();
 const Home = () => {
   let params = useParams();
   params = userInfo.userId;
-  // console.log(params);
+  console.log(params);
   return (
     <div>
       <Nav />
-      <div>
-        {/* <Navigate to={"/home/posts"} replace /> */}
-        <Posts />
-      </div>
+      {/* <Navigate to={"/home/posts"} replace /> */}
+      <UserInfo />
     </div>
   );
 };

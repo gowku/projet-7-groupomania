@@ -1,7 +1,13 @@
 const UserInfo = () => {
   return (
-    <div>
-      <p>info utilisateur</p>;
+    <div className="div">
+      <p>info utilisateur</p>
+      {/* <img>profilPic</img> */}
+      <p>email</p>
+      <p>firstName</p>
+      <p>lastName</p>
+      <p>birthDate</p>
+      <p>password</p>
     </div>
   );
 };

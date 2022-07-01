@@ -121,14 +121,10 @@ const getOneUser = (req, res, next) => {
 
   User.findByPk(userId)
     .then((user) => {
-      // console.log(user);
+      console.log(user);
       res.status(200).json(user);
     })
-    .catch(
-      res.status(404).json({
-        error: new Error("user not found"),
-      })
-    );
+    .catch((error) => res.status(500).json(error));
 };
 
 export { signup, login, remove, modifyProfil, getOneUser };
