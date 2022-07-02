@@ -31,11 +31,10 @@ getUserInfo();
 const Home = () => {
   let params = useParams();
   params = userInfo.userId;
-  console.log(params);
+  // console.log(params);
   return (
     <div>
       <Nav />
-      {/* <Navigate to={"/home/posts"} replace /> */}
       <UserInfo />
     </div>
   );

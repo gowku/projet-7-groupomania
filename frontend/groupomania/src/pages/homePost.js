@@ -2,6 +2,7 @@ import { useParams, Navigate } from "react-router-dom";
 import axios from "axios";
 import Nav from "../components/nav";
 import Posts from "../components/Posts";
+import CreatePost from "../components/CreatePost";
 
 let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 const userId = userInfo.userId;
@@ -35,8 +36,8 @@ const Home = () => {
   return (
     <div>
       <Nav />
+      <CreatePost />
       <div>
-        {/* <Navigate to={"/home/posts"} replace /> */}
         <Posts />
       </div>
     </div>
