@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+// import FormData from "form-data";
 
 const CreatePost = () => {
   const [postInput, setpostInput] = useState({
@@ -16,7 +17,10 @@ const CreatePost = () => {
 
   const formSubmitPostHandler = (e) => {
     e.preventDefault();
-    // console.log(e.target[0]);
+    console.log(e.target[0].files[0]);
+    // let formData = new FormData();
+
+    // formData.append(...postInput);
 
     axios
       .post(
@@ -26,9 +30,10 @@ const CreatePost = () => {
           texte: postInput.enteredDescription,
           file: postInput.enteredImage,
         },
+        // { formData },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1Njc3MzIwMiwiZXhwIjoxNjU2ODU5NjAyfQ.3LUdloPdGnRWCZMFEqjzWn-6IiNaMHCgcHc4w3ztJM0 `,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1Njg0NTIyMiwiZXhwIjoxNjU2OTMxNjIyfQ.Kbm3LEwF11bRN0siPNs9oqvBtGg8wNmsS-J8ZYc_eis `,
             "content-type": "multipart/form-data",
           },
         }
@@ -42,10 +47,10 @@ const CreatePost = () => {
   };
 
   return (
-    <form onSubmit={formSubmitPostHandler} className="createPost">
+    <form onSubmit={formSubmitPostHandler} className="createPost" encType="multipart/form-data">
       <div>
-        <label htmlFor="image">image</label>
-        <input type="file" id="image" onChange={submitPostImageHandler} />
+        <label htmlFor="file">image</label>
+        <input type="file" id="file" onChange={submitPostImageHandler} />
       </div>
       <div>
         <label htmlFor="description">description</label>
