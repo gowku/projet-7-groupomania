@@ -3,37 +3,45 @@ import { useState } from "react";
 // import FormData from "form-data";
 
 const CreatePost = () => {
-  const [postInput, setpostInput] = useState({
-    enteredImage: "",
-    enteredDescription: "",
-  });
+  // const [postInput, setpostInput] = useState({
+  //   enteredImage: "",
+  //   enteredDescription: "",
+  // });
+  const [imageUrl, setImageUrl] = useState("null");
+  const [description, setDescription] = useState("null");
 
   const submitPostImageHandler = (e) => {
-    setpostInput({ ...postInput, enteredImage: e.target[0] });
+    console.log("ici");
+    // console.log(e.target);
+    setImageUrl(e.target[0].files[0]);
   };
   const submitDescriptionHandler = (e) => {
-    setpostInput({ ...postInput, enteredDescription: e.target.value });
+    setDescription(e.target.value);
+    console.log(e.target.value);
   };
 
   const formSubmitPostHandler = (e) => {
     e.preventDefault();
     console.log(e.target[0].files[0]);
-    // let formData = new FormData();
+    let formData = new FormData();
 
-    // formData.append(...postInput);
+    formData.append("file", imageUrl);
+    formData.append("description", description);
+    console.log(formData);
 
     axios
       .post(
         "http://localhost:3000/api/posts",
-        {
-          userId: 1,
-          texte: postInput.enteredDescription,
-          file: postInput.enteredImage,
-        },
-        // { formData },
+        // {
+        //   userId: 1,
+        //   texte: postInput.enteredDescription,
+        //   file: postInput.enteredImage,
+        // },
+        { formData },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1Njg0NTIyMiwiZXhwIjoxNjU2OTMxNjIyfQ.Kbm3LEwF11bRN0siPNs9oqvBtGg8wNmsS-J8ZYc_eis `,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1NzAxNzI0OSwiZXhwIjoxNjU3MTAzNjQ5fQ.CQQYbJiI7Ukd3HECOHex7ddu8LSrkd1MdDD8ShQMuKQ `,
+            // accept: "application/json",
             "content-type": "multipart/form-data",
           },
         }
@@ -47,10 +55,10 @@ const CreatePost = () => {
   };
 
   return (
-    <form onSubmit={formSubmitPostHandler} className="createPost" encType="multipart/form-data">
+    <form onSubmit={formSubmitPostHandler} className="createPost">
       <div>
-        <label htmlFor="file">image</label>
-        <input type="file" id="file" onChange={submitPostImageHandler} />
+        <label htmlFor="image">image</label>
+        <input type="file" id="imageUrl" name="imageUrl" onClick={submitPostImageHandler} />
       </div>
       <div>
         <label htmlFor="description">description</label>

@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 const __dirname = fileURLToPath(import.meta.url);
 import express from "express";
 import bodyParser from "body-parser";
+// import fileupload from "express-fileupload";
 
 import database from "./database/db.js";
 import { User } from "./models/user.js";
@@ -59,6 +60,8 @@ database
 app.use(express.json());
 
 app.use(bodyParser.json());
+
+// app.use(fileupload());
 
 app.use(`/images`, express.static(path.join(__dirname, `images`)));
 

@@ -5,6 +5,7 @@ const postLiked = (req, res, next) => {
   const postId = req.params.postId;
   const userId = req.user.id;
   const likeValue = req.body.like;
+  // console.log(likeValue);
 
   Post.findByPk(postId)
     .then(async (post) => {
@@ -13,8 +14,19 @@ const postLiked = (req, res, next) => {
         defaults: { value: likeValue },
       });
       if (created) {
+        // if (likeValue === 1) {
+        //   const likes = await Post.upsert({
+        //     id: postId,
+        //     like: +1,
+        //   });
+        // } else if (likeValue === 0) {
+        //   const likes = await Post.upsert({
+        //     id: postId,
+        //     like: -1,
+        //   });
+        // }
         await post.addLike(like);
-        // console.log("je suis ici!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         res.status(201).json({ message: "like créé" });
       } else {
         const liked = await Like.findOne({ where: { postId: postId, userId: userId } });
@@ -22,6 +34,17 @@ const postLiked = (req, res, next) => {
           id: liked.id,
           value: likeValue,
         });
+        // if (likeValue === 1) {
+        //   await Post.upsert({
+        //     id: postId,
+        //     like: +1,
+        //   });
+        // } else if (likeValue === 0) {
+        //   await Post.upsert({
+        //     id: postId,
+        //     like: -1,
+        //   });
+        // }
         res.status(201).json({ message: "like modifié" });
       }
     })

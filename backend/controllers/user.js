@@ -10,7 +10,7 @@ import userValidation from "../validation/userValidation.js";
 const signup = (req, res, next) => {
   const { body } = req;
   // console.log("inscription");
-  console.log(body.email);
+  // console.log(body.email);
 
   const { error } = userValidation(body);
   if (error) return res.status(401).json(error.details[0].message);
@@ -116,12 +116,12 @@ const modifyProfil = (req, res, next) => {
 };
 
 const getOneUser = (req, res, next) => {
-  console.log("je suis la !!!!!!!!!!!!!!!!!!!");
+  // console.log("je suis la !!!!!!!!!!!!!!!!!!!");
   const userId = req.params.userId;
 
   User.findByPk(userId)
     .then((user) => {
-      console.log(user);
+      // console.log(user);
       res.status(200).json(user);
     })
     .catch((error) => res.status(500).json(error));

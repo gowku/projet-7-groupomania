@@ -1,0 +1,35 @@
+nav {
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.links {
+  width: 25%;
+  height: auto;
+  margin-right: 5rem;
+  margin-top: 2rem;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-home {
+  margin: 1rem 0 0 1rem;
+}
+
+.div {
+  margin-top: 20rem;
+  margin-left: 10rem;
+}
+
+.post {
+  margin-top: 12rem;
+  margin-left: 10rem;
+}
+
+.createPost {
+  margin-top: 10rem;
+  margin-left: 30rem;
+}/*# sourceMappingURL=home.css.map */

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 const userId = userInfo.userId;
 const token = userInfo.token;
-// console.log(userInfo.token);
+console.log(userInfo.token);
 
 // async function getUserInfo() {
 //   try {

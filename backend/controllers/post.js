@@ -1,8 +1,11 @@
 import fs from "fs";
+import { Like } from "../models/like.js";
 import { Post } from "../models/post.js";
 
 const getAllPost = (req, res, next) => {
-  Post.findAll()
+  Post.findAll({
+    include: [Like],
+  })
     .then((post) => {
       res.status(200).json(post);
     })
@@ -14,7 +17,7 @@ const getAllPost = (req, res, next) => {
 };
 
 const createPost = (req, res, next) => {
-  console.log(req);
+  console.log(req.file);
   Post.create({
     userId: req.body.userId,
     texte: req.body.texte,

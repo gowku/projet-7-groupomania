@@ -34,7 +34,7 @@ const FormInscription = (props) => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(userInput);
+    // console.log(userInput);
     axios
       .post("http://localhost:3000/api/auth/signup", {
         email: userInput.enteredEmail,
