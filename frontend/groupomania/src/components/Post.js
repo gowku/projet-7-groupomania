@@ -41,7 +41,7 @@ const Post = (props) => {
         { like: 1 },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1NzAxNzI0OSwiZXhwIjoxNjU3MTAzNjQ5fQ.CQQYbJiI7Ukd3HECOHex7ddu8LSrkd1MdDD8ShQMuKQ `,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1NzEwMzkzMywiZXhwIjoxNjU3MTkwMzMzfQ.zxjbx0844wd6raO5d321SdRdgPTiiZyiQuJTolVYTr4 `,
           },
         }
       )
@@ -57,7 +57,7 @@ const Post = (props) => {
         { like: -1 },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1NzAxNzI0OSwiZXhwIjoxNjU3MTAzNjQ5fQ.CQQYbJiI7Ukd3HECOHex7ddu8LSrkd1MdDD8ShQMuKQ `,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1NzEwMzkzMywiZXhwIjoxNjU3MTkwMzMzfQ.zxjbx0844wd6raO5d321SdRdgPTiiZyiQuJTolVYTr4 `,
           },
         }
       )

@@ -14,17 +14,6 @@ const postLiked = (req, res, next) => {
         defaults: { value: likeValue },
       });
       if (created) {
-        // if (likeValue === 1) {
-        //   const likes = await Post.upsert({
-        //     id: postId,
-        //     like: +1,
-        //   });
-        // } else if (likeValue === 0) {
-        //   const likes = await Post.upsert({
-        //     id: postId,
-        //     like: -1,
-        //   });
-        // }
         await post.addLike(like);
 
         res.status(201).json({ message: "like créé" });
@@ -34,17 +23,9 @@ const postLiked = (req, res, next) => {
           id: liked.id,
           value: likeValue,
         });
-        // if (likeValue === 1) {
-        //   await Post.upsert({
-        //     id: postId,
-        //     like: +1,
-        //   });
-        // } else if (likeValue === 0) {
-        //   await Post.upsert({
-        //     id: postId,
-        //     like: -1,
-        //   });
-        // }
+        // faire le comptage des likes ici
+        // const count = Like.findAll(postId )
+
         res.status(201).json({ message: "like modifié" });
       }
     })

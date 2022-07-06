@@ -18,7 +18,7 @@ const Comment = () => {
         { userId: 1, texte: commentInput.enteredComment },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1Njg0NTIyMiwiZXhwIjoxNjU2OTMxNjIyfQ.Kbm3LEwF11bRN0siPNs9oqvBtGg8wNmsS-J8ZYc_eis `,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1NzEwMzkzMywiZXhwIjoxNjU3MTkwMzMzfQ.zxjbx0844wd6raO5d321SdRdgPTiiZyiQuJTolVYTr4 `,
           },
         }
       )
@@ -30,12 +30,25 @@ const Comment = () => {
       });
   };
 
+  const [isClicked, setIsClicked] = useState(false);
+  const toggleIsClicked = () => {
+    setIsClicked((current) => !current);
+  };
+
   return (
-    <form onSubmit={formSubmitCommentHandler}>
-      <label htmlFor="comment">ecrivez votre commentaire ici !</label>
-      <input type="text" id="comment" onChange={SubmitCommentHandler} />
-      <button type="submit">commenter</button>
-    </form>
+    <>
+      <button onClick={toggleIsClicked}>commenter</button>
+      {isClicked ? (
+        <>
+          <form onSubmit={formSubmitCommentHandler}>
+            <label htmlFor="comment">ecrivez votre commentaire ici !</label>
+            <input type="text" id="comment" onChange={SubmitCommentHandler} />
+          </form>
+        </>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 export default Comment;

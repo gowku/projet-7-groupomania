@@ -27,8 +27,6 @@ const FormLogin = (props) => {
         password: userInput.enteredPassword,
       })
       .then(function (response) {
-        // console.log(response.data);
-        // envoyer token dans le local storage
         const userInfo = response.data;
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         localStorage.setItem("loggedIn", true);

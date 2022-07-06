@@ -17,7 +17,7 @@ const getAllPost = (req, res, next) => {
 };
 
 const createPost = (req, res, next) => {
-  console.log(req.file);
+  console.log(req.body);
   Post.create({
     userId: req.body.userId,
     texte: req.body.texte,
