@@ -17,7 +17,7 @@ const FormLogin = (props) => {
     setUserInput({ ...userInput, enteredPassword: e.target.value });
   };
 
-  const saveUserInfo = () => {};
+  // const saveUserInfo = () => {};
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -31,6 +31,7 @@ const FormLogin = (props) => {
         // envoyer token dans le local storage
         const userInfo = response.data;
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        localStorage.setItem("loggedIn", true);
         navigate("/home", { replace: true });
       })
       .catch(function (error) {
