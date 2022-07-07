@@ -1,54 +1,26 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Comment = () => {
-  const [commentInput, setCommentInput] = useState({
-    enteredComment: "",
-  });
+const Comment = (props) => {
+  //   console.log(props.comment);
+  const [user, setUser] = useState([]);
 
-  const SubmitCommentHandler = (e) => {
-    setCommentInput({ ...commentInput, enteredComment: e.target.value });
-  };
-
-  const formSubmitCommentHandler = (e) => {
-    e.preventDefault();
+  useEffect(() => {
     axios
-      .post(
-        "http://localhost:3000/api/comment/1",
-        { userId: 1, texte: commentInput.enteredComment },
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1NzEwMzkzMywiZXhwIjoxNjU3MTkwMzMzfQ.zxjbx0844wd6raO5d321SdRdgPTiiZyiQuJTolVYTr4 `,
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response);
+      .get(`http://localhost:3000/api/auth/${props.comment.userId}`, {
+        headers: { Authorization: `Bearer ${props.token} ` },
       })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const [isClicked, setIsClicked] = useState(false);
-  const toggleIsClicked = () => {
-    setIsClicked((current) => !current);
-  };
+      .then((response) => setUser(response.data));
+  }, []);
+  //   console.log(user);
 
   return (
-    <>
-      <button onClick={toggleIsClicked}>commenter</button>
-      {isClicked ? (
-        <>
-          <form onSubmit={formSubmitCommentHandler}>
-            <label htmlFor="comment">ecrivez votre commentaire ici !</label>
-            <input type="text" id="comment" onChange={SubmitCommentHandler} />
-          </form>
-        </>
-      ) : (
-        ""
-      )}
-    </>
+    <div>
+      <p>{user.firstName}</p>
+      <p>{user.lastName}</p>
+      <p>{props.comment.texte}</p>
+    </div>
   );
 };
+
 export default Comment;

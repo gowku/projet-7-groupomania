@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserInfo from "../../components/UserInfo";
 
-let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-const userId = userInfo.userId;
-const token = userInfo.token;
-console.log(userInfo.token);
-
 const Profile = () => {
+  let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userId = userInfo.userId;
+  const token = userInfo.token;
+  console.log(userInfo.token);
+
   const [user, setUser] = useState([]);
   let params = useParams();
   params = userInfo.userId;

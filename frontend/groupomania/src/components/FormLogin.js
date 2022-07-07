@@ -30,7 +30,7 @@ const FormLogin = (props) => {
         const userInfo = response.data;
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         localStorage.setItem("loggedIn", true);
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       })
       .catch(function (error) {
         if (error) {

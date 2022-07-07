@@ -1,10 +1,11 @@
 import fs from "fs";
+import { Comment } from "../models/comment.js";
 import { Like } from "../models/like.js";
 import { Post } from "../models/post.js";
 
 const getAllPost = (req, res, next) => {
   Post.findAll({
-    include: [Like],
+    include: [Like, Comment],
   })
     .then((post) => {
       res.status(200).json(post);

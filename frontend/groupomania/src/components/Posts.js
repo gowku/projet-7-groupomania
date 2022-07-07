@@ -1,18 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Post from "./Post";
-import Comment from "./Comment";
+import AddComment from "./AddComment";
+import CommentList from "./CommentList";
 
 const Posts = (props) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const token = userInfo.token;
-  const userId = userInfo.userId;
+  // console.log(props);
+
+  const token = props.token;
 
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/posts", {
+      .get(`http://localhost:3000/api/posts`, {
         headers: {
           Authorization: `Bearer ${token} `,
         },
@@ -20,12 +21,23 @@ const Posts = (props) => {
       .then((response) => response.data)
       .then((posts) => setPosts(posts));
   }, []);
-  return posts.map((post) => (
-    <div>
-      <Post key={post.id} post={post} />
-      <Comment />
-    </div>
-  ));
+  // console.log(posts);
+
+  return (
+    <ul>
+      {posts.length > 0 &&
+        posts.map((post) => (
+          <li>
+            <Post key={post.id} post={post} user={props.user} token={token} />
+
+            <CommentList comments={post.comments} token={token} />
+
+            <AddComment token={token} postId={post.id} user={props.user} />
+          </li>
+        ))}
+      {posts.length === 0 && <p>Il n'y a pas de posts</p>}
+    </ul>
+  );
 };
 
 export default Posts;
