@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-// import FormData from "form-data";
 
 const Upload = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -15,7 +14,6 @@ const Upload = () => {
   };
   const submitDescriptionHandler = (e) => {
     setDescription(e.target.value);
-    console.log(e.target.value);
   };
 
   const formSubmitPostHandler = (e) => {

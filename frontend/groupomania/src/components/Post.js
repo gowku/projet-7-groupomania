@@ -21,6 +21,7 @@ const Post = (props) => {
   const postId = props.post.id;
   const token = props.token;
 
+  //récuperer les infos de l'utilisateur connecté
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -30,8 +31,8 @@ const Post = (props) => {
       })
       .then((response) => setUser(response.data));
   }, []);
-  // console.log(user);
 
+  //gerer les likes
   const [likeInput, setLikeInput] = useState(false);
   const [dislikeInput, setDislikeInput] = useState(false);
 
@@ -82,7 +83,21 @@ const Post = (props) => {
         console.log(error);
       });
   };
-  // console.log(props.post);
+
+  const [isAuthor, setIsAuthor] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (user.id === props.post.userId) {
+      setIsAuthor(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user.isAdmin) {
+      setIsAdmin(true);
+    }
+  }, []);
 
   return (
     <div className="post">
@@ -95,7 +110,8 @@ const Post = (props) => {
       {/* <faThumbsUp /> */}
       <button onClick={submitLikeHandler}>like</button>
       <button onClick={submitDislikeHandler}>dislike</button>
-      <button onClick={submitDeletePostHandler}>supprimer post</button>
+      {isAuthor || isAdmin ? <button onClick={submitDeletePostHandler}>supprimer post</button> : ""}
+      {isAuthor || isAdmin ? <button>modifier post</button> : ""}
     </div>
   );
 };

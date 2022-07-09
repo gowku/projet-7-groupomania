@@ -48,10 +48,14 @@ const login = (req, res, next) => {
             if (!valid) {
               return res.status(401).json({ error: "Mot de passe incorrect !" });
             }
-            res.status(200).json({
-              userId: user.id,
-              token: jwt.sign({ userId: user.id }, process.env.TOKEN, { expiresIn: "24h" }),
-            });
+            res.status(200).json(
+              {
+                userId: user.id,
+                token: jwt.sign({ userId: user.id }, process.env.TOKEN, { expiresIn: "24h" }),
+              }
+              // ,
+              // { loggedIn: true }
+            );
           })
           .catch((error) => res.status(500).json({ error }));
       }
