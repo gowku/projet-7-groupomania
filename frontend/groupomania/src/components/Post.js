@@ -13,11 +13,6 @@ import { useEffect, useState } from "react";
 const Post = (props) => {
   console.log(props);
 
-  // const [myBool, setmyBool] = useState(true);
-
-  // function toggleBool() {
-  //   setmyBool(!myBool);
-  // }
   const postId = props.post.id;
   const token = props.token;
 
@@ -102,19 +97,76 @@ const Post = (props) => {
     }
   }, [localStorage.getItem("loggedIn")]);
 
+  const [isClicked, setIsClicked] = useState(false);
+  const toggleIsClicked = () => {
+    setIsClicked((current) => !current);
+  };
+
+  const [imageUrl, setImageUrl] = useState("null");
+  const [description, setDescription] = useState("null");
+
+  const submitPostImageHandler = (e) => {
+    setImageUrl(e.target.files[0]);
+  };
+  const submitDescriptionHandler = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const formSubmitPostHandler = (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+
+    formData.append("file", imageUrl);
+    formData.append("texte", description);
+    formData.append("userId", props.user.id);
+
+    axios({
+      method: `put`,
+      url: `http://localhost:3000/api/posts/${postId}`,
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${token} `,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="post">
       <p>{user.firstName}</p>
       <p>{user.lastName}</p>
       <p>{props.post.updatedAt}</p>
-      <img src={props.post.imageUrl}></img>
-      <p>{props.post.texte}</p>
+      {isClicked ? (
+        <form onSubmit={formSubmitPostHandler} className="createPost">
+          <div>
+            <label htmlFor="image">image</label>
+            <input type="file" id="imageUrl" name="imageUrl" onChange={submitPostImageHandler} />
+          </div>
+          <div>
+            <label htmlFor="description">description</label>
+            <input type="texte" id="description" onChange={submitDescriptionHandler} />
+          </div>
+          <button type="submit">Envoyer le post</button>
+        </form>
+      ) : (
+        <>
+          <img src={props.post.imageUrl}></img>
+          <p>{props.post.texte}</p>
+        </>
+      )}
+
       <p>{props.post.likes.length} like</p>
       {/* <faThumbsUp /> */}
       <button onClick={submitLikeHandler}>like</button>
       <button onClick={submitDislikeHandler}>dislike</button>
       {isAuthor || isAdmin ? <button onClick={submitDeletePostHandler}>supprimer post</button> : ""}
-      {isAuthor || isAdmin ? <button>modifier post</button> : ""}
+      {isAuthor || isAdmin ? <button onClick={toggleIsClicked}>modifier post</button> : ""}
     </div>
   );
 };

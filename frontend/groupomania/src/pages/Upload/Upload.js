@@ -26,7 +26,7 @@ const Upload = () => {
 
     axios({
       method: "post",
-      url: "http://localhost:3000/api/posts",
+      url: `http://localhost:3000/api/posts`,
       data: formData,
       headers: {
         Authorization: `Bearer ${token} `,

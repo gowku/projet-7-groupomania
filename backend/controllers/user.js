@@ -120,13 +120,16 @@ const modifyProfil = (req, res, next) => {
 };
 
 const getOneUser = (req, res, next) => {
-  // console.log("je suis la !!!!!!!!!!!!!!!!!!!");
   const userId = req.params.userId;
 
   User.findByPk(userId)
-    .then((user) => {
-      // console.log(user);
-      res.status(200).json(user);
+    .then(async (user) => {
+      // const bytes = CryptoJS.HmacSHA256.decrypt(user.email, process.env.EMAIL);
+      // const decryptEmail = bytes.toString(CryptoJS.enc.Utf8);
+      // console.log("iciiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+      // console.log(decryptEmail);
+
+      await res.status(200).json(user);
     })
     .catch((error) => res.status(500).json(error));
 };

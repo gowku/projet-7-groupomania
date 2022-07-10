@@ -7,7 +7,7 @@ const Profile = () => {
   let userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const userId = userInfo.userId;
   const token = userInfo.token;
-  console.log(userInfo.token);
+  // console.log(userInfo.token);
 
   const [user, setUser] = useState([]);
   let params = useParams();
@@ -23,7 +23,7 @@ const Profile = () => {
 
   return (
     <div>
-      <UserInfo key={user.id} user={user} />
+      <UserInfo key={user.id} user={user} token={token} />
     </div>
   );
 };

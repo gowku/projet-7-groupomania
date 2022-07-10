@@ -48,7 +48,10 @@ const Comment = (props) => {
       });
   };
 
-  const [isModified, setIsModified] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const toggleIsClicked = () => {
+    setIsClicked((current) => !current);
+  };
   const [commentInput, setCommentInput] = useState("");
 
   const submitModifiedCommentHandler = (e) => {
@@ -79,7 +82,7 @@ const Comment = (props) => {
     <div>
       <p>{user.firstName}</p>
       <p>{user.lastName}</p>
-      {isModified ? (
+      {isClicked ? (
         <>
           <form onSubmit={formPutCommentHandler}>
             <input placeholder={props.comment.texte} onChange={submitModifiedCommentHandler}></input>
@@ -90,17 +93,7 @@ const Comment = (props) => {
         <p>{props.comment.texte}</p>
       )}
       {isAuthor || isAdmin ? <button onClick={submitDeleteCommentHandler}>supprimer comment</button> : ""}
-      {isAuthor || isAdmin ? (
-        <button
-          onClick={() => {
-            setIsModified(true);
-          }}
-        >
-          modifier comment
-        </button>
-      ) : (
-        ""
-      )}
+      {isAuthor || isAdmin ? <button onClick={toggleIsClicked}>modifier comment</button> : ""}
     </div>
   );
 };

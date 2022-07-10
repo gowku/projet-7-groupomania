@@ -9,7 +9,7 @@ const router = Router();
 router.post(`/signup`, signup);
 router.post(`/login`, login);
 router.get("/:userId", auth, getOneUser);
-router.put(`/:userId`, auth, isAdmin, MulterProfil, modifyProfil);
+router.put(`/:userId`, auth, MulterProfil, modifyProfil);
 router.delete(`/:userId`, remove);
 
 export default router;
