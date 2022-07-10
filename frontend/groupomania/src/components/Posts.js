@@ -36,12 +36,35 @@ const Posts = (props) => {
   }, []);
   // console.log(posts);
 
+  // const [isAuthor, setIsAuthor] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
+
+  // useEffect(() => {
+  //   if (user.id === props.post.userId) {
+  //     setIsAuthor(true);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (user.isAdmin) {
+  //     setIsAdmin(true);
+  //   }
+  // }, []);
+
   return (
     <ul>
       {posts.length > 0 &&
         posts.map((post) => (
           <li>
-            <Post key={post.id} post={post} user={user} token={token} loggedIn={props.loggedIn} />
+            <Post
+              key={post.id}
+              post={post}
+              user={user}
+              token={token}
+              loggedIn={props.loggedIn}
+              // isAdmin={isAdmin}
+              // isAuthor={isAuthor}
+            />
 
             <CommentList comments={post.comments} token={token} />
 

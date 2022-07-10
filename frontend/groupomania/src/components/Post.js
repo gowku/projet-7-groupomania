@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 // }
 
 const Post = (props) => {
-  // console.log(props);
+  console.log(props);
 
   // const [myBool, setmyBool] = useState(true);
 
@@ -86,18 +86,21 @@ const Post = (props) => {
 
   const [isAuthor, setIsAuthor] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  // console.log(isAuthor, isAdmin);
+  // const isAdmin = props.roles[0];
+  // const isAuthor = props.roles[1];
 
   useEffect(() => {
     if (user.id === props.post.userId) {
       setIsAuthor(true);
     }
-  }, []);
+  }, [localStorage.getItem("loggedIn")]);
 
   useEffect(() => {
     if (user.isAdmin) {
       setIsAdmin(true);
     }
-  }, []);
+  }, [localStorage.getItem("loggedIn")]);
 
   return (
     <div className="post">
