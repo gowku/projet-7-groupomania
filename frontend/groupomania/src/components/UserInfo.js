@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import UserList from "./UsersList";
 
 const UserInfo = (props) => {
   // console.log(props);
@@ -145,7 +146,7 @@ const UserInfo = (props) => {
 
       <button onClick={togglePutIsClicked}>modifier info utilisateur</button>
       <button onClick={DeleteUserHandler}>supprimer utilisateur</button>
-      {/* {isAdmin ? }  */}
+      {isAdmin ? <UserList token={props.token} /> : ""}
     </div>
   );
 };

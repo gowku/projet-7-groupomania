@@ -58,8 +58,6 @@ const adminDeleteComment = (req, res, next) => {
 };
 
 const getAllUser = async (req, res, next) => {
-  console.log("je suis ici");
-
   try {
     const users = await User.findAll();
     await res.status(200).json(users);
