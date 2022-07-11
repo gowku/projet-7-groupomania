@@ -145,7 +145,7 @@ const UserInfo = (props) => {
       )}
 
       <button onClick={togglePutIsClicked}>modifier info utilisateur</button>
-      <button onClick={DeleteUserHandler}>supprimer utilisateur</button>
+      <button onClick={DeleteUserHandler}>supprimer votre compte ?</button>
       {isAdmin ? <UserList token={props.token} /> : ""}
     </div>
   );

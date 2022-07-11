@@ -25,6 +25,7 @@ const AddComment = (props) => {
       )
       .then(function (response) {
         console.log(response);
+        setIsClicked(false);
       })
       .catch(function (error) {
         console.log(error);

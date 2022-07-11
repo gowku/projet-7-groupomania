@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
+  let navigate = useNavigate();
+
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const token = userInfo.token;
   const userId = userInfo.userId;
@@ -35,7 +38,9 @@ const Upload = () => {
     })
       .then(function (response) {
         console.log(response);
+        navigate("/", { replace: true });
       })
+
       .catch(function (error) {
         console.log(error);
       });

@@ -25,6 +25,7 @@ const Post = (props) => {
 
   //récuperer les infos de l'utilisateur connecté
   const [user, setUser] = useState([]);
+  console.log(user);
 
   useEffect(() => {
     axios

@@ -8,6 +8,7 @@ const Navbar = () => {
 
   useEffect(() => {
     // console.log(localStorage.getItem("loggedIn"));
+
     setLoggedIn(localStorage.getItem("loggedIn"));
     console.log(loggedIn);
   }, [localStorage.getItem("loggedIn")]);
@@ -22,7 +23,7 @@ const Navbar = () => {
     }
     localStorage.removeItem("userInfo");
     localStorage.setItem("loggedIn", false);
-    navigate("/", { replace: true });
+    navigate("/login", { replace: true });
   }, [isLoggout]);
 
   return (

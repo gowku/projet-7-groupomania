@@ -16,7 +16,7 @@ const Comment = (props) => {
       })
       .then((response) => setUser(response.data));
   }, []);
-  console.log(user);
+  // console.log(user);
 
   const [isAuthor, setIsAuthor] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
