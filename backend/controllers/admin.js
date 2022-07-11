@@ -57,4 +57,15 @@ const adminDeleteComment = (req, res, next) => {
   });
 };
 
-export { adminDeleteUser, adminDeletePost, adminDeleteComment };
+const getAllUser = async (req, res, next) => {
+  console.log("je suis ici");
+
+  try {
+    const users = await User.findAll();
+    await res.status(200).json(users);
+  } catch {
+    (error) => res.status(500).json(error);
+  }
+};
+
+export { adminDeleteUser, adminDeletePost, adminDeleteComment, getAllUser };
