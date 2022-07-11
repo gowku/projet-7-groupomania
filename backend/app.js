@@ -22,6 +22,7 @@ import userRoutes from "./routes/user.js";
 import postRoutes from "./routes/post.js";
 import commentRoutes from "./routes/comment.js";
 import likeRoutes from "./routes/like.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 app.use(morgan("dev"));
 
@@ -69,5 +70,6 @@ app.use(`/api/auth`, userRoutes);
 app.use(`/api/posts`, postRoutes);
 app.use(`/api/comment`, commentRoutes);
 app.use(`/api/like`, likeRoutes);
+app.use(`/api/admin`, adminRoutes);
 
 export default app;

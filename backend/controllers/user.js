@@ -26,6 +26,7 @@ const signup = (req, res, next) => {
         firstName: body.firstName,
         lastName: body.lastName,
         birthDate: body.birthDate,
+        // isAdmin: body.isAdmin,
       })
         .then(() => {
           res.status(201).json({ message: "utilisateur créé" });

@@ -13,6 +13,13 @@ import { useEffect, useState } from "react";
 const Post = (props) => {
   console.log(props);
 
+  //calcul du nombre de like par post
+  let likeValue = 0;
+  props.post.likes.map((e) => {
+    likeValue += e.value;
+    // console.log(likeValue);
+  });
+
   const postId = props.post.id;
   const token = props.token;
 
@@ -32,11 +39,19 @@ const Post = (props) => {
   const [dislikeInput, setDislikeInput] = useState(false);
 
   const submitLikeHandler = (e) => {
-    setLikeInput(true);
+    let like;
+    setLikeInput((current) => !current);
+    {
+      likeInput ? (like = 1) : (like = 0);
+    }
+    // console.log(like);
+
     axios
       .post(
         `http://localhost:3000/api/like/${postId}`,
-        { like: 1 },
+        {
+          like: like,
+        },
         {
           headers: {
             Authorization: `Bearer ${token} `,
@@ -48,11 +63,16 @@ const Post = (props) => {
       });
   };
   const submitDislikeHandler = (e) => {
-    setDislikeInput(true);
+    let like;
+    setDislikeInput((current) => !current);
+    {
+      dislikeInput ? (like = -1) : (like = 0);
+    }
+    // console.log(like);
     axios
       .post(
         `http://localhost:3000/api/like/${postId}`,
-        { like: -1 },
+        { like: like },
         {
           headers: {
             Authorization: `Bearer ${token} `,
@@ -161,7 +181,7 @@ const Post = (props) => {
         </>
       )}
 
-      <p>{props.post.likes.length} like</p>
+      <p>{likeValue} like</p>
       {/* <faThumbsUp /> */}
       <button onClick={submitLikeHandler}>like</button>
       <button onClick={submitDislikeHandler}>dislike</button>

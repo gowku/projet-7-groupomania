@@ -17,6 +17,7 @@ const userValidation = (body) => {
     lastName: Joi.string().min(3).max(30),
     birthDate: Joi.string(),
     birthDate: Joi.date(),
+    // isAdmin: Joi.number(),
   });
   return userShema.validate(body);
 };
