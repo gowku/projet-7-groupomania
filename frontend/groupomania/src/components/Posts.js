@@ -10,6 +10,8 @@ const Posts = (props) => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const userId = userInfo.userId;
   const token = userInfo.token;
+  const isAdmin = userInfo.isAdmin;
+
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -62,11 +64,11 @@ const Posts = (props) => {
               user={user}
               token={token}
               loggedIn={props.loggedIn}
-              // isAdmin={isAdmin}
+              isAdmin={isAdmin}
               // isAuthor={isAuthor}
             />
 
-            <CommentList comments={post.comments} token={token} />
+            <CommentList comments={post.comments} token={token} isAdmin={isAdmin} />
 
             <AddComment token={token} postId={post.id} user={user} />
           </li>

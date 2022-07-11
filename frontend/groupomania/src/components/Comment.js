@@ -25,27 +25,38 @@ const Comment = (props) => {
     if (user.id === props.comment.userId) {
       setIsAuthor(true);
     }
-  }, [localStorage.getItem("loggedIn")]);
+  }, [localStorage.getItem("userInfo")]);
 
   useEffect(() => {
-    if (user.isAdmin) {
-      setIsAdmin(true);
-    }
-  }, [localStorage.getItem("loggedIn")]);
+    setIsAdmin(props.isAdmin);
+  }, [localStorage.getItem("userInfo")]);
 
   const submitDeleteCommentHandler = (e) => {
-    axios
-      .delete(`http://localhost:3000/api/comment/${user.id}/${postId}/${commentId}`, {
-        headers: {
-          Authorization: `Bearer ${token} `,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    isAdmin
+      ? axios
+          .delete(`http://localhost:3000/api/admin/comment/${commentId}`, {
+            headers: {
+              Authorization: `Bearer ${token} `,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      : axios
+          .delete(`http://localhost:3000/api/comment/${user.id}/${postId}/${commentId}`, {
+            headers: {
+              Authorization: `Bearer ${token} `,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
   };
 
   const [isClicked, setIsClicked] = useState(false);

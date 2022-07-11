@@ -45,11 +45,10 @@ const modifyComment = (req, res, next) => {
 };
 
 const deleteComment = (req, res, next) => {
-  console.log("je suis ici !!!!!!!!!!!!!!");
   const commentId = req.params.commentId;
 
   Comment.findByPk(commentId).then(async (comment) => {
-    console.log(comment);
+    // console.log(comment);
 
     if (comment.userId === req.user.id || req.user.isAdmin) {
       await comment.destroy();

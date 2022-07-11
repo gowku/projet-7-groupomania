@@ -6,7 +6,7 @@ const CommentList = (props) => {
       {props.comments.length > 0 &&
         props.comments.map((comment) => (
           <li>
-            <Comment key={comment.id} comment={comment} token={props.token} />
+            <Comment key={comment.id} comment={comment} token={props.token} isAdmin={props.isAdmin} />
           </li>
         ))}
       {props.comments.length === 0 && ""}

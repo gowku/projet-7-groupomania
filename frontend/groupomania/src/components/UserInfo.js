@@ -1,14 +1,20 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const UserInfo = (props) => {
-  console.log(props);
+  // console.log(props);
   const token = props.token;
 
-  const [isClicked, setIsClicked] = useState(false);
-  const toggleIsClicked = () => {
-    setIsClicked((current) => !current);
+  const [putIsClicked, setPutIsClicked] = useState(false);
+  const togglePutIsClicked = () => {
+    setPutIsClicked((current) => !current);
   };
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(props.user.isAdmin);
+  }, [localStorage.getItem("userInfo")]);
 
   // const [userInput, setUserInput] = useState({
   //   enteredEmail: "",
@@ -77,10 +83,25 @@ const UserInfo = (props) => {
       });
   };
 
+  const DeleteUserHandler = () => {
+    axios
+      .delete(`http://localhost:3000/api/auth/${props.user.id}`, {
+        headers: {
+          Authorization: `Bearer ${token} `,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="div">
       <p>info personnel</p>
-      {isClicked ? (
+      {putIsClicked ? (
         <form onSubmit={formSubmitHandler}>
           <div>
             <label htmlFor="image">image</label>
@@ -122,7 +143,9 @@ const UserInfo = (props) => {
         </>
       )}
 
-      <button onClick={toggleIsClicked}>modifier info utilisateur</button>
+      <button onClick={togglePutIsClicked}>modifier info utilisateur</button>
+      <button onClick={DeleteUserHandler}>supprimer utilisateur</button>
+      {/* {isAdmin ? }  */}
     </div>
   );
 };

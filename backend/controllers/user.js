@@ -53,6 +53,7 @@ const login = (req, res, next) => {
               {
                 userId: user.id,
                 token: jwt.sign({ userId: user.id }, process.env.TOKEN, { expiresIn: "24h" }),
+                isAdmin: user.isAdmin,
               }
               // ,
               // { loggedIn: true }
