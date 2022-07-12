@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Posts from "../../components/Posts";
 
 const Home = () => {
-  const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+  const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
   // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   // const userId = userInfo.userId;
   // const token = userInfo.token;
@@ -23,16 +23,14 @@ const Home = () => {
   // console.log(loggedIn);
 
   useEffect(() => {
-    if (!localStorage.getItem("loggedIn")) {
-      localStorage.setItem("loggedIn", false);
+    if (!localStorage.getItem("isLoggedIn")) {
+      localStorage.setItem("isLoggedIn", false);
     }
   }, []);
 
-  return <>{loggedIn ? <Posts loggedIn={loggedIn} /> : <h1>Bienvenue sur GROUPOMANIA</h1>}</>;
+  return <>{isLoggedIn ? <Posts isLoggedIn={isLoggedIn} /> : <h1>Bienvenue sur GROUPOMANIA</h1>}</>;
 
   // return <Posts />;
 };
 
 export default Home;
-
-//blabla

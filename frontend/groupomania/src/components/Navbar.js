@@ -4,14 +4,16 @@ import { useNavigate, NavLink } from "react-router-dom";
 import Logo from "./Logo";
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // console.log(localStorage.getItem("loggedIn"));
-
-    setLoggedIn(localStorage.getItem("loggedIn"));
-    console.log(loggedIn);
-  }, [localStorage.getItem("loggedIn")]);
+    const userLoggedIn = localStorage.getItem("isLoggedIn");
+    if (userLoggedIn === true) {
+      setIsLoggedIn(true);
+      console.log(isLoggedIn);
+    }
+  }, []);
 
   let navigate = useNavigate();
 
@@ -22,7 +24,7 @@ const Navbar = () => {
       return;
     }
     localStorage.removeItem("userInfo");
-    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("isLoggedIn", false);
     navigate("/login", { replace: true });
   }, [isLoggout]);
 
@@ -30,11 +32,13 @@ const Navbar = () => {
     <nav className="Navbar">
       <Logo />
       <NavLink to="/">Home</NavLink>
-      {loggedIn ? (
+      {isLoggedIn ? (
         <>
           <NavLink to="/upload">Upload</NavLink>
           <NavLink to="/profile">Profile</NavLink>
-          <button onClick={() => setIsLoggout(true)}>logout</button>
+          <NavLink to="/home" onClick={() => setIsLoggout(true)}>
+            Logout
+          </NavLink>
         </>
       ) : (
         <>

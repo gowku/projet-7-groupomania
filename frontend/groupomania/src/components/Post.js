@@ -17,7 +17,7 @@ const Post = (props) => {
   let likeValue = 0;
   props.post.likes.map((e) => {
     likeValue += e.value;
-    // console.log(likeValue);
+    console.log(likeValue);
   });
 
   const postId = props.post.id;
@@ -43,7 +43,7 @@ const Post = (props) => {
     let like;
     setLikeInput((current) => !current);
     {
-      likeInput ? (like = 1) : (like = 0);
+      likeInput ? (dislikeInput === true ? (like = 2) : (like = 1)) : (like = 0);
     }
     // console.log(like);
 
@@ -67,7 +67,7 @@ const Post = (props) => {
     let like;
     setDislikeInput((current) => !current);
     {
-      dislikeInput ? (like = -1) : (like = 0);
+      dislikeInput ? (likeInput === true ? (like = -2) : (like = -1)) : (like = 0);
     }
     // console.log(like);
     axios

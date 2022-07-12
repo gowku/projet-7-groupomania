@@ -1,0 +1,11 @@
+form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  margin-left: 1rem;
+}
+form div {
+  margin-top: 0.2rem;
+}/*# sourceMappingURL=formLoginRegister.css.map */

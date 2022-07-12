@@ -63,7 +63,7 @@ const Posts = (props) => {
               post={post}
               user={user}
               token={token}
-              loggedIn={props.loggedIn}
+              // isLoggedIn={props.isLoggedIn}
               isAdmin={isAdmin}
               // isAuthor={isAuthor}
             />
